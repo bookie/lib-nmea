@@ -1,4 +1,4 @@
-# NMEA C library
+# NMEA C Library
 
 NMEA encode/decode library. This library base on the NMEA protocol defined by [NovAtel](http://www.novatel.com/) in its OEM4 familay.
 
@@ -8,7 +8,7 @@ Please reference to [OEM4 Family of Receivers - Command and Log Reference Manual
 ## Operation
 This library import/export information from individual NMEA message from/into its assoicated structure. 
 
-## Example of NMEA library for decoding RMC
+## Snippet of NMEA Library
 
 ```c
 struct nmea_date
@@ -49,6 +49,14 @@ struct nmea_rmc
  */
 static bool libnmea_dec_rmc(struct *nmea_rmc, const char *str);
 
+```
+
+## Remove Binary Characters
+
+In case there are binary messages embedded in the NMEA text file,
+use the following command to remove them:
+```bash
+strings <NMEA file> |  sed -nb 's/^.*\($GP\)/\1/p' 
 ```
 
 
