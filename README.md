@@ -1,12 +1,25 @@
 # NMEA C Library
 
-NMEA encode/decode library. This library base on the NMEA protocol defined by [NovAtel](http://www.novatel.com/) in its OEM4 familay.
+NMEA encode/decode library. This library bases on the NMEA protocol defined by [NovAtel](http://www.novatel.com/) in its OEM4 familay.
 
 Please reference to [OEM4 Family of Receivers - Command and Log Reference Manual](http://www.novatel.com/assets/Documents/Manuals/om-20000047.pdf) for details.
 
 
 ## Operation
 This library import/export information from individual NMEA message from/into its assoicated structure. 
+
+## Decoding Flow
+1. Read NMEA sentenses from file
+2. Exclude all binary characters in the sentenses
+3. Identify the NMEA message
+4. Skip to next sentense if the NMEA message contains no UTC (e.g. GPGLL, GPGSA, etc..)
+5. Verify the checksum of the sentense
+6. Record the timestamp from UTC
+7. Read all fields in the sentence, and decode them to associated structures
+8. Step to next sentence
+9. Repeat from _step 7_ until UTC has been updated from the message
+10. Repeat from _step 6_ until end of file
+
 
 ## Snippet of NMEA Library
 
