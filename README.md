@@ -53,6 +53,20 @@ skip
 
 Number of character in next message block.
 
+#### Example
+```c
+FILE *pFile;
+pFile = fopen("nmea.txt", "r");
+if (pFile != NULL)
+{
+    uint32_t m = 0;
+    while (!feof(pFile))
+    {
+        m = nmea_file_seek_next_blk(pFile, m);
+    }
+}
+```
+
 ### Extract one NMEA message from file and copy to buffer
 ```c
 uint32_t nmea_file_extract_msg(char *str, FILE *pfile);
