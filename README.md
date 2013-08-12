@@ -20,6 +20,69 @@ This library import/export information from individual NMEA message from/into it
 9. Repeat from _step 7_ until UTC has been updated from the message
 10. Repeat from _step 6_ until end of file
 
+## Supported NMEA Message Type
+* GGA - Fix Information
+* GLL - Geographic Position
+* GRS - Range Residuals for Each Satellite
+* GSA - DOP and Active Satellites
+* GSV - Satellites in View
+* RMC - Recommended Minimum Data
+* VTG - Vector track an Speed over the Ground
+* ZDA - UTC Date and Time
+* TXT - Text Information
+
+## API
+
+* TOC
+{:toc}
+
+### Seek next message block in file
+```c
+uint32 nmea_file_seek_next_blk(FILE *pfile);
+```
+
+#### Parameters
+
+pfile
+: **FILE object** - a FILE object that identify the stream.
+
+#### Return
+
+Number of character in next message block.
+
+### Extract one NMEA message from file and copy to buffer
+```c
+uint32 nmea_file_extract_msg(char *str, FILE *pfile);
+```
+
+#### Parameters
+
+str
+: **string** - char array to hold the message.
+
+pfile
+: **FILE object** - FILE input stream.
+
+#### Return
+
+Number of character in the message.
+
+### Compute the checksum of the message
+```c
+uint8_t nmea_chksum_msg(const char *str, uint32_t size);
+```
+
+#### Parameters
+
+str
+: **string** - char array to hold the message.
+
+size
+: **integer** - size of the message.
+
+#### Return
+
+The checksum of the message.
 
 ## Snippet of NMEA Library
 
