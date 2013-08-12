@@ -4,9 +4,13 @@ NMEA encode/decode library. This library bases on the NMEA protocol defined by [
 
 Please reference to [OEM4 Family of Receivers - Command and Log Reference Manual](http://www.novatel.com/assets/Documents/Manuals/om-20000047.pdf) for details.
 
-
 ## Operation
 This library import/export information from individual NMEA message from/into its assoicated structure. 
+
+## Message Format
+Each sentence begins with a '$' and ends with a carriage return/line feed sequence and can be **no longer than 80 characters** of visible text (plus the line terminators). 
+The data is contained within this single line with data items separated by commas. 
+The data itself is just ASCII text and may extend over multiple sentences in certain specialized instances but is normally fully contained in one variable length sentence.
 
 ## Decoding Flow
 1. Read NMEA sentenses from file
@@ -83,6 +87,15 @@ pfile
 #### Return
 
 Number of character in the message.
+
+#### Example
+```c
+#define NMEA_MSG_LEN_MAX    (80)
+#define NMEA_LINETERM_LEN   (2)
+char buff[NMEA_MSG_LEN_MAX + NMEA_LINETERM_LEN]; //  80 characters of visible text plus the line terminators
+uint32_t len;
+len = nmea_file_extract_msg(buff, pFile);
+```
 
 ### Compute the checksum of the message
 ```c
