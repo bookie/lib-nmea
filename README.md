@@ -38,7 +38,7 @@ This library import/export information from individual NMEA message from/into it
 
 ### Seek next message block in file
 ```c
-uint32 nmea_file_seek_next_blk(FILE *pfile);
+uint32_t nmea_file_seek_next_blk(FILE *pfile, uint32_t skip);
 ```
 
 #### Parameters
@@ -46,19 +46,22 @@ uint32 nmea_file_seek_next_blk(FILE *pfile);
 pfile
 : **FILE object** - a FILE object that identify the stream.
 
+skip
+: **unsigned 32-bit** - Number of character bypass before checking the next block
+
 #### Return
 
 Number of character in next message block.
 
 ### Extract one NMEA message from file and copy to buffer
 ```c
-uint32 nmea_file_extract_msg(char *str, FILE *pfile);
+uint32_t nmea_file_extract_msg(char *str, FILE *pfile);
 ```
 
 #### Parameters
 
 str
-: **string** - char array to hold the message.
+: **char array** - char array to hold the message.
 
 pfile
 : **FILE object** - FILE input stream.
@@ -75,7 +78,7 @@ uint8_t nmea_chksum_msg(const char *str, uint32_t size);
 #### Parameters
 
 str
-: **string** - char array to hold the message.
+: **char array** - char array to hold the message.
 
 size
 : **integer** - size of the message.
